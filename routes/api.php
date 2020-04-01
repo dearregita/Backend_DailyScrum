@@ -20,7 +20,13 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', "UserController@index"); //cek token
     Route::get('user/{limit}/{offset}', "UserController@getAll"); //read dengan limit petugas
 
-    Route::get('daily', 'DailyScrumController@daily'); //do login
-    Route::get('dailyAll', 'DailyScrumController@dailyAuth'); //do login
+    //Dailyscrum
+    Route::get('dailyscrum', "DailyScrumController@index"); //read poin
+    Route::get('dailyscrum/{limit}/{offset}/{id_user}', "DailyScrumController@getAll"); //read poin
+    Route::post('dailyscrum', 'DailyScrumController@store'); //create poin
+    Route::delete('dailyscrum/{id}', 'DailyScrumController@delete'); //delete poin
+
+    // Route::get('daily', 'DailyScrumController@daily'); //do login
+    // Route::get('dailyAll', 'DailyScrumController@dailyAuth'); //do login
 
 });
