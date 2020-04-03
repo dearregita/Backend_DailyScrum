@@ -171,57 +171,57 @@ class DailyScrumController extends Controller
           }
       }
   
-      public function getDetailDaily($id)
-    {
-    	try {
+    //   public function getDetailDaily($id)
+    // {
+    // 	try {
 
-    		$dataDaily = Siswa::where('id', $id)->first();
-        if($dataDaily != NULL){
-      		$detailDailyScrum = DB::table('dailyScrum')->join('users','users.id','=','dailyscrum.id_users')
-                                                ->select('dailyscrum.id', 'users.Firstname','users.Lastname','users.email', 
-                                                'dailyscrum.team','dailyscrum.id_users','dailyscrum.activity_yesterday',
-                                                'dailyscrum.activity_today','dailyscrum.problem_yesterday','dailyscrum.solution')
-                                                ->where('dailyscrum.id_users', $id_user)
-                                                ->get();
+    // 		$dataDaily = Siswa::where('id', $id)->first();
+    //     if($dataDaily != NULL){
+    //   		$detailDailyScrum = DB::table('dailyScrum')->join('users','users.id','=','dailyscrum.id_users')
+    //                                             ->select('dailyscrum.id', 'users.Firstname','users.Lastname','users.email', 
+    //                                             'dailyscrum.team','dailyscrum.id_users','dailyscrum.activity_yesterday',
+    //                                             'dailyscrum.activity_today','dailyscrum.problem_yesterday','dailyscrum.solution')
+    //                                             ->where('dailyscrum.id_users', $id_user)
+    //                                             ->get();
 
       		
-      		$data["team"] = $dataDaily->team;
-  	        $data["activity_yesterday"] 		= $dataDaily->activity_yesterday;
-  	        $data["activity_today"] 		= $dataDaily->activity_today;
-            $data["problem_yesterday"] 		= $dataDaily->problem_yesterday;
-            $data["solution"] 		    = $dataDaily->solution;
+    //   		$data["team"] = $dataDaily->team;
+  	//         $data["activity_yesterday"] 		= $dataDaily->activity_yesterday;
+  	//         $data["activity_today"] 		= $dataDaily->activity_today;
+    //         $data["problem_yesterday"] 		= $dataDaily->problem_yesterday;
+    //         $data["solution"] 		    = $dataDaily->solution;
               
-  	        $detailDaily = array();
-  	        foreach ($detailDailyScrum->get() as $p) {
+  	//         $detailDaily = array();
+  	//         foreach ($detailDailyScrum->get() as $p) {
 
-  	            $item = [
-	                "team"  		        => $p->team,
-                    "activity_yesterday"  	=> $p->activity_yesterday,
-                    "activity_today"  	    => $p->activity_today,
-	                "problem_yesterday"	    => $p->problem_yesterday,
-                    "solution"              => $p->solution,
-  	            ];
+  	//             $item = [
+	//                 "team"  		        => $p->team,
+    //                 "activity_yesterday"  	=> $p->activity_yesterday,
+    //                 "activity_today"  	    => $p->activity_today,
+	//                 "problem_yesterday"	    => $p->problem_yesterday,
+    //                 "solution"              => $p->solution,
+  	//             ];
 
-  	            array_push($detailDaily, $item);
-  	        }
+  	//             array_push($detailDaily, $item);
+  	//         }
 
-  	        $data["detail"] = $detailDaily;
-  	        $data["count"] 	= $detailDailyScrum->get()->count();
-  	        $data["status"] = 1;
-  	        return response($data);
-          } else {
-            return response([
-              'status' => 0,
-              'message' => 'Data user tidak ditemukan'
-            ]);
-          }
+  	//         $data["detail"] = $detailDaily;
+  	//         $data["count"] 	= $detailDailyScrum->get()->count();
+  	//         $data["status"] = 1;
+  	//         return response($data);
+    //       } else {
+    //         return response([
+    //           'status' => 0,
+    //           'message' => 'Data user tidak ditemukan'
+    //         ]);
+    //       }
 
-    	} catch(\Exception $e){
-    		return response([
-    			'status' => 0,
-    			'message' => $e->getMessage()
-    		]);
-    	}
-    }
+    // 	} catch(\Exception $e){
+    // 		return response([
+    // 			'status' => 0,
+    // 			'message' => $e->getMessage()
+    // 		]);
+    // 	}
+    // }
 
 }
