@@ -135,7 +135,7 @@ return [
     */
 
     'providers' => [
-
+        Jenssegers\Date\DateServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */

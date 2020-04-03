@@ -5,6 +5,7 @@ use Auth;
 use App\DailyScrum;
 use App\User;
 use DB;
+use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,8 @@ class DailyScrumController extends Controller
 	        $dataDaily = DB::table('dailyscrum')->join('users','users.id','=','dailyscrum.id_users')
                                                ->select('dailyscrum.id', 'users.Firstname','users.Lastname','users.email', 
                                                'dailyscrum.team','dailyscrum.id_users','dailyscrum.activity_yesterday',
-                                               'dailyscrum.activity_today','dailyscrum.problem_yesterday','dailyscrum.solution')
+                                               'dailyscrum.activity_today','dailyscrum.problem_yesterday','dailyscrum.solution', 
+                                               'dailyscrum.created_at')
 	                                           ->get();
 
 	        foreach ($dataDaily as $p) {
@@ -32,6 +34,8 @@ class DailyScrumController extends Controller
                     "activity_today"  	    => $p->activity_today,
 	                "problem_yesterday"	    => $p->problem_yesterday,
                     "solution"              => $p->solution,
+                    "created_at"             =>$p->created_at,
+                    "tanggal"               => date('D, j  F Y', strtotime($p->created_at)),
 	            ];
 
 	            array_push($daily, $item);
@@ -56,7 +60,7 @@ class DailyScrumController extends Controller
 	        $dataDaily = DB::table('dailyscrum')->join('users','users.id','=','dailyscrum.id_users')
                                                ->select('dailyscrum.id', 'users.Firstname','users.Lastname','users.email', 
                                                'dailyscrum.team','dailyscrum.id_users','dailyscrum.activity_yesterday',
-                                               'dailyscrum.activity_today','dailyscrum.problem_yesterday','dailyscrum.solution')
+                                               'dailyscrum.activity_today','dailyscrum.problem_yesterday','dailyscrum.solution','dailyscrum.created_at')
                                                ->skip($offset)
                                                ->take($limit)
                                                ->where('dailyscrum.id_users', $id_users)
@@ -74,6 +78,8 @@ class DailyScrumController extends Controller
                     "activity_today"  	    => $p->activity_today,
 	                "problem_yesterday"	    => $p->problem_yesterday,
                     "solution"              => $p->solution,
+                    "created_at"             =>$p->created_at,
+                    "tanggal"               => date('D, j F Y', strtotime($p->created_at)),
 	            ];
 
 	            array_push($daily, $item);
